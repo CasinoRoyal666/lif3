@@ -24,9 +24,10 @@ class Day(TimestampMixin, Base):
     )
     reflection: Mapped[str | None] = mapped_column(Text)
 
+    # order_by — чтобы порядок в ответе API был стабильным
     actions: Mapped[list["Action"]] = relationship(
-        secondary=day_actions, back_populates="days"
+        secondary=day_actions, back_populates="days", order_by="Action.name"
     )
     events: Mapped[list["Event"]] = relationship(
-        secondary=day_events, back_populates="days"
+        secondary=day_events, back_populates="days", order_by="Event.name"
     )
